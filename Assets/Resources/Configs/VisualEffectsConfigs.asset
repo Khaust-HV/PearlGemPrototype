@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1c62c95700b643bf9200838953049a7, type: 3}
+  m_Name: VisualEffectsConfigs
+  m_EditorClassIdentifier: 
+  <BallMaterial>k__BackingField: {fileID: 2100000, guid: 73fceada90b5cb943a4aae6f2d79793b, type: 2}

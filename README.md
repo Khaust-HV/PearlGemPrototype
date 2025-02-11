@@ -1,5 +1,5 @@
 # PearlGemPrototype
-Test-project version 0.0.1
+Test task version 0.0.2
 
 // Version Unity Editor - 60000.0.36f1
 

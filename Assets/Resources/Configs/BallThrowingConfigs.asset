@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29f6c47ff570e4867811bec2e83124ff, type: 3}
+  m_Name: BallThrowingConfigs
+  m_EditorClassIdentifier: 
+  <BallPrefab>k__BackingField: {fileID: 469959343545505861, guid: 99bb0eff8cddb452fb4af3b364abbf15, type: 3}
+  <CurrentBallSize>k__BackingField: 0.5
+  <NextBallSize>k__BackingField: 0.25
+  <BallMass>k__BackingField: 1
+  <BallLifeTime>k__BackingField: 2
+  <BallSpawnTime>k__BackingField: 0.01
+  <BallDestroyTime>k__BackingField: 1
+  <AimSensitivity>k__BackingField: 5
+  <MinHorizontalAimValue>k__BackingField: -50
+  <MaxHorizontalAimValue>k__BackingField: 50
+  <MinVerticalAimValue>k__BackingField: -30
+  <MaxVerticalAimValue>k__BackingField: 30
+  <ThrowingPowerSensitivity>k__BackingField: 1
+  <MinThrowingPower>k__BackingField: 3
+  <MaxThrowingPower>k__BackingField: 15
+  <AimLinePointsNumber>k__BackingField: 30
+  <AimLineTimeStep>k__BackingField: 0.035
