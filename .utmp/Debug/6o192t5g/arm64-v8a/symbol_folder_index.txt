@@ -1,0 +1,1 @@
+/Users/honcharenko/Documents/Unity/Projects/PearlGemPrototype/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/Debug/6o192t5g/obj/arm64-v8a

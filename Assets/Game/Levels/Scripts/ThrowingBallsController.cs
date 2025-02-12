@@ -125,6 +125,8 @@ public sealed class ThrowingBallsController : IThrowingBalls {
     public void ThrowBall() {
         Vector3 direction = (Quaternion.Euler(_verticalAimValue, _horizontalAimValue, 0f) * Vector3.forward).normalized;
 
+        _currentBall.SetBallLayer(3);
+        _currentBall.SetColliderActive(true);
         _currentBall.SetPhysicsActive(true);
         _currentBall.SetForceTheBall(direction, _currentThrowingPower);
 

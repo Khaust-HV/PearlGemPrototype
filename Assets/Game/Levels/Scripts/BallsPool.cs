@@ -3,7 +3,7 @@ using GameConfigs;
 using UnityEngine;
 using Zenject;
 
-public sealed class BallsPool : IControlBallsPool { // Objects pool
+public sealed class BallsPool : IControlTheBallsPool { // Objects pool
     private Transform _ballsPool;
 
     private List<IControlTheBall> ballsList = new();
@@ -41,7 +41,7 @@ public sealed class BallsPool : IControlBallsPool { // Objects pool
     public void CreateBalls(int number) { // Factory method
         for (int i = 0; i < number; i++) {
             GameObject obj = _container.InstantiatePrefab(_ballThrowingConfigs.BallPrefab, Vector3.zero, Quaternion.identity, _ballsPool);
-            
+
             obj.SetActive(false);
 
             Component[] components = obj.GetComponents<Component>();
@@ -55,7 +55,7 @@ public sealed class BallsPool : IControlBallsPool { // Objects pool
     }
 }
 
-public interface IControlBallsPool {
+public interface IControlTheBallsPool {
     public Transform GetBallPoolTransform();
     public IControlTheBall GetDisableBall();
     public void CreateBalls(int number);

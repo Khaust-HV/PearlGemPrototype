@@ -1,13 +1,18 @@
+using System;
 using System.Collections;
 using GameConfigs;
 using UnityEngine;
 using Zenject;
 
 public sealed class BallController : MonoBehaviour, IControlTheBall {
+    public event Action<IControlTheBall> HitTheRightBall;
+
     private bool _isBallActive;
 
     private BallColorType _ballColorType;
     private BallMaterialControl _ballMaterialControl;
+
+    private bool isThrownBall;
 
     private Rigidbody _rbBall;
     private MeshRenderer _mrBall;
@@ -15,11 +20,11 @@ public sealed class BallController : MonoBehaviour, IControlTheBall {
 
     #region DI
         private BallThrowingConfigs _ballThrowingConfigs;
-        private IControlBallsPool _iControlBallPool;
+        private IControlTheBallsPool _iControlBallPool;
     #endregion
 
     [Inject]
-    private void Construct(BallThrowingConfigs ballThrowingConfigs, IControlBallsPool iControlBallPool) {
+    private void Construct(BallThrowingConfigs ballThrowingConfigs, IControlTheBallsPool iControlBallPool) {
         // Set DI
         _ballThrowingConfigs = ballThrowingConfigs;
         _iControlBallPool = iControlBallPool;
@@ -54,6 +59,10 @@ public sealed class BallController : MonoBehaviour, IControlTheBall {
         return _ballColorType;
     }
 
+    public Vector3 GetBallPosition() {
+        return transform.position;
+    }
+
     public void SetPosition(Vector3 position) {
         transform.position = position;
     }
@@ -61,6 +70,10 @@ public sealed class BallController : MonoBehaviour, IControlTheBall {
     public void SetPosition(Vector3 position, Transform parentObject) {
         transform.SetParent(parentObject);
         transform.localPosition = position;
+    }
+
+    public void SetParent(Transform parentObject) {
+        transform.SetParent(parentObject);
     }
 
     public void SetBallSize(float size) {
@@ -80,7 +93,10 @@ public sealed class BallController : MonoBehaviour, IControlTheBall {
     }
 
     public void BallDestroyEnable() {
+        SetColliderActive(false);
         SetPhysicsActive(false);
+
+        isThrownBall = false;
 
         StopAllCoroutines();
 
@@ -93,6 +109,10 @@ public sealed class BallController : MonoBehaviour, IControlTheBall {
         RestoreAndHide();
     }
 
+    public void SetBallLayer(int layerIndex) {
+        gameObject.layer = layerIndex;
+    }
+
     public void SetPhysicsActive(bool isActive) {
         if (isActive) {
             _rbBall.isKinematic = false;
@@ -100,8 +120,11 @@ public sealed class BallController : MonoBehaviour, IControlTheBall {
             StartCoroutine(BallLifeStarted());
         } else {
             _rbBall.isKinematic = true;
-            _scBall.enabled = false;
         }
+    }
+
+    public void SetColliderActive(bool isActive) {
+        _scBall.enabled = isActive;
     }
 
     private IEnumerator BallLifeStarted() {
@@ -111,9 +134,9 @@ public sealed class BallController : MonoBehaviour, IControlTheBall {
     }
 
     public void SetForceTheBall(Vector3 direction, float forcePower) {
-        _scBall.enabled = true;
-
         _rbBall.AddForce(direction * forcePower, ForceMode.Impulse);
+
+        isThrownBall = true;
     }
 
     private void RestoreAndHide() {
@@ -128,25 +151,32 @@ public sealed class BallController : MonoBehaviour, IControlTheBall {
     }
 
     private void OnCollisionEnter(Collision other) {
-        if (other.collider.CompareTag("Balls")) {
-            // Collision with ball
-            
-            BallDestroyEnable();
-        } else if (other.collider.CompareTag("Plane")) {
+        Collider cObj = other.collider;
+
+        if (cObj.CompareTag("Balls")) {
+            if (!isThrownBall) {
+                if (cObj.GetComponent<BallController>().GetBallColorType() == _ballColorType) HitTheRightBall?.Invoke(this);
+            } else BallDestroyEnable();
+        } else if (cObj.CompareTag("Plane")) {
             BallDestroyEnable();
         }
     }
 }
 
 public interface IControlTheBall {
+    public event Action<IControlTheBall> HitTheRightBall;
     public bool IsBallActive();
     public void SetBallColorType(BallColorType colorType);
     public BallColorType GetBallColorType();
+    public Vector3 GetBallPosition();
     public void SetPosition(Vector3 position);
     public void SetPosition(Vector3 position, Transform parentObject);
+    public void SetParent(Transform parentObject);
     public void SetBallSize(float size);
     public void BallSpawnEnable();
     public void BallDestroyEnable();
+    public void SetBallLayer(int layerIndex);
     public void SetPhysicsActive(bool isActive);
+    public void SetColliderActive(bool isActive);
     public void SetForceTheBall(Vector3 direction, float forcePower);
 }

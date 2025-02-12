@@ -5,27 +5,31 @@ public sealed class Bootstrap : MonoBehaviour { // Entry point
     #region DI
         private ISwitchGameplayInput _iSwitchGameplayInput;
         private IThrowingBalls _iThrowingBalls;
-        private IControlBallsPool _iControlBallPool;
+        private IControlTheBallsPool _iControlBallPool;
+        private IControlThePlayer _iControlThePlayer;
     #endregion
 
     [Inject]
     private void Construct (
         IThrowingBalls iThrowingBalls, 
         ISwitchGameplayInput iSwitchGameplayInput, 
-        IControlBallsPool iControlBallPool
+        IControlTheBallsPool iControlTheBallPool,
+        IControlThePlayer iControlThePlayer
         ) {
         // Set DI
         _iThrowingBalls = iThrowingBalls;
         _iSwitchGameplayInput = iSwitchGameplayInput;
-        _iControlBallPool = iControlBallPool;
+        _iControlBallPool = iControlTheBallPool;
+        _iControlThePlayer = iControlThePlayer;
     }
 
     private void Awake() {
         // Generate level
         _iControlBallPool.CreateBalls(50);
 
-        _iThrowingBalls.SetThrowingPosition();
-        _iThrowingBalls.SetAbilityToThrowBallsActive(true);
+        Physics.IgnoreLayerCollision(3, 6, true);
+
+        _iControlThePlayer.StartTheGame();
 
         // Set control
         _iSwitchGameplayInput.SetGameplayInputActionMapActive(true);

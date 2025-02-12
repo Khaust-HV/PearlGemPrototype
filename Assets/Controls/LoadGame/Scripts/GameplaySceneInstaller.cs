@@ -7,8 +7,10 @@ public sealed class GameplaySceneInstaller : MonoInstaller { // Dependency injec
     [Header("Configurations")]
     [SerializeField] private BallThrowingConfigs _ballThrowingConfigs;
     [SerializeField] private VisualEffectsConfigs _visualEffectsConfigs;
+    [SerializeField] private SphereOfBallsConfigs _sphereOfBallsConfigs;
     [Header("DI prefabs")]
     [SerializeField] private GameObject _cameraControllerPrefab;
+    [SerializeField] private GameObject _sphereOfBallsControllerPrefab;
 
     public override void InstallBindings() {
         Application.targetFrameRate = 120;
@@ -23,6 +25,7 @@ public sealed class GameplaySceneInstaller : MonoInstaller { // Dependency injec
     private void ConfigsBind() {
         Container.Bind<BallThrowingConfigs>().FromInstance(_ballThrowingConfigs).AsSingle().NonLazy();
         Container.Bind<VisualEffectsConfigs>().FromInstance(_visualEffectsConfigs).AsSingle().NonLazy();
+        Container.Bind<SphereOfBallsConfigs>().FromInstance(_sphereOfBallsConfigs).AsSingle().NonLazy();
     }
 
     private void ManagersInit() {
@@ -35,5 +38,6 @@ public sealed class GameplaySceneInstaller : MonoInstaller { // Dependency injec
         Container.BindInterfacesTo<BallsPool>().AsSingle().NonLazy();
         
         Container.BindInterfacesTo<CameraController>().FromComponentInNewPrefab(_cameraControllerPrefab).AsSingle().NonLazy();
+        Container.BindInterfacesTo<SphereOfBallsController>().FromComponentInNewPrefab(_sphereOfBallsControllerPrefab).AsSingle().NonLazy();
     }
 }

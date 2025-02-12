@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 069676026b9e245ed9e831a1012d00db, type: 3}
+  m_Name: SphereOfBallsConfigs
+  m_EditorClassIdentifier: 
+  <LayerSpherePrefab>k__BackingField: {fileID: 5791336341487178967, guid: 8348f393a573c4cfbaa430026cd6ff25, type: 3}
+  <SpherePosition>k__BackingField: {x: 0, y: 5, z: 0}
+  <MinNumberOfLayersSphere>k__BackingField: 1
+  <MaxNumberOfLayersSphere>k__BackingField: 5
+  <StartRadiusSphere>k__BackingField: 3
+  <LayerDistanceSphere>k__BackingField: 0.5
+  <MinLayerRotationSpeedSphere>k__BackingField: 10
+  <MaxLayerRotationSpeedSphere>k__BackingField: 50
+  <SegmentLayerPrefab>k__BackingField: {fileID: 4981133802939123468, guid: 52f4ea7b74c6c461680bf1425f94a9de, type: 3}
+  <MinNumberOfSegmentsOnOneLayer>k__BackingField: 2
+  <MaxNumberOfSegmentsOnOneLayer>k__BackingField: 7
+  <NeighborDistanceToBalls>k__BackingField: 0.6
+  <SegmentDestoryTime>k__BackingField: 0.01

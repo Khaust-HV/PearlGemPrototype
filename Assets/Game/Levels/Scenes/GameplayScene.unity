@@ -391,7 +391,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ballThrowingConfigs: {fileID: 11400000, guid: 31aae4c004d37484b99e7029af6ebcf1, type: 2}
   _visualEffectsConfigs: {fileID: 11400000, guid: deb6d5c52d2bc47c390e7e4651a0ce26, type: 2}
+  _sphereOfBallsConfigs: {fileID: 11400000, guid: e61f0f551ebd24fe184c8551dcc89d64, type: 2}
   _cameraControllerPrefab: {fileID: 5390403327889467184, guid: 2bcc197b014854c0aa7d7aeee54cc504, type: 3}
+  _sphereOfBallsControllerPrefab: {fileID: 6686740535415749278, guid: 7a1042d85868548f587550b0b4cda7b9, type: 3}
 --- !u!114 &1823336640
 MonoBehaviour:
   m_ObjectHideFlags: 0
