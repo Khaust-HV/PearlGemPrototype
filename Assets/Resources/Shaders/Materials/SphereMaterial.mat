@@ -8,17 +8,18 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SphereMaterial
-  m_Shader: {fileID: 4800000, guid: 313fcf3aebc04cf4ab4f8c5f2850be7f, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: c3302d18a3a84418c9cfcc24cbe1e6dc, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
-  disabledShaderPasses: []
+  disabledShaderPasses:
+  - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -27,28 +28,52 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Step1: 1
-    - _Gloss: 10
-    - _OutlineWidth: 0.3
-    - _RimPower: 2.2
-    - _RimStep: 0
-    - _RimStepSmooth: 0
-    - _ShadowStep: 0.64
-    - _ShadowStepSmooth: 0
-    - _SpecularStep: 0.17
-    - _SpecularStepSmooth: 0
-    - _Step: 0.432
-    - _Step1: 0.537
-    - _Step2: 0.018
-    - _Step3: 0.97
-    - _Step4: 0.025
+    - _CutoffHeight: 0.7
+    - _EdgeWidth: 1
+    - _Metallic: 0
+    - _NoiseScale: 75
+    - _NoiseStrength: 10
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _RimColor: 0
+    - _RimStep: 0.09
+    - _RimStepSmooth: 0.5
+    - _ShadowStep: 0.775
+    - _ShadowStepSmooth: 0.364
+    - _Smoothness: 0.775
+    - _SpecularStep: 0.505
+    - _SpecularStepSmooth: 0.555
     m_Colors:
-    - _BaseColor: {r: 0.5943396, g: 0.014017442, b: 0.12407858, a: 1}
-    - _HighColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
-    - _RimColor: {r: 1, g: 0, b: 0, a: 1}
-    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 1, g: 0, b: 0, a: 0}
+    - _EdgeColor: {r: 0, g: 5.992157, b: 5.992157, a: 0}
+    - _RimColor: {r: 2.9960785, g: 2.9960785, b: 0, a: 0}
+    - _SpecularColor: {r: 23.968622, g: 23.968622, b: 23.968622, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
+--- !u!114 &4153254299794741295
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 9

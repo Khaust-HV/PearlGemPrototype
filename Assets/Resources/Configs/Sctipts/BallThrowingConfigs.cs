@@ -11,6 +11,8 @@ namespace GameConfigs {
         [field: SerializeField] public float BallLifeTime { get; private set; }
         [field: SerializeField] public float BallSpawnTime { get; private set; }
         [field: SerializeField] public float BallDestroyTime { get; private set; }
+        [field: SerializeField] public float CutoffHeightStart { get; private set; }
+        [field: SerializeField] public float CutoffHeightFinish { get; private set; }
         [field: Space(10)]
 
         [field: Header("Ball throw settings")]

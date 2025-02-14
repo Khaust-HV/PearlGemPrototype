@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using GameConfigs;
 using UnityEngine;
+using UnityEngine.VFX;
 using Zenject;
 
 public sealed class BallController : MonoBehaviour, IControlTheBall {
@@ -14,37 +15,55 @@ public sealed class BallController : MonoBehaviour, IControlTheBall {
 
     private bool isThrownBall;
 
+    private VisualEffect _visualEffect;
     private Rigidbody _rbBall;
-    private MeshRenderer _mrBall;
     private SphereCollider _scBall;
 
     #region DI
         private BallThrowingConfigs _ballThrowingConfigs;
+        private VisualEffectsConfigs _visualEffectsConfigs;
         private IControlTheBallsPool _iControlBallPool;
     #endregion
 
     [Inject]
-    private void Construct(BallThrowingConfigs ballThrowingConfigs, IControlTheBallsPool iControlBallPool) {
+    private void Construct (
+        BallThrowingConfigs ballThrowingConfigs, 
+        VisualEffectsConfigs visualEffectsConfigs, 
+        IControlTheBallsPool iControlBallPool
+        ) {
         // Set DI
         _ballThrowingConfigs = ballThrowingConfigs;
+        _visualEffectsConfigs = visualEffectsConfigs;
         _iControlBallPool = iControlBallPool;
 
         // Set components
+        _visualEffect = GetComponent<VisualEffect>();
+        SetVisualEffectConfigurations();
+
         _rbBall = GetComponent<Rigidbody>();
         _rbBall.mass = _ballThrowingConfigs.BallMass;
         _rbBall.isKinematic = true;
-
-        _mrBall = GetComponent<MeshRenderer>();
-        _mrBall.enabled = false;
 
         _scBall = GetComponent<SphereCollider>();
         _scBall.enabled = false;
 
         _ballMaterialControl = GetComponent<BallMaterialControl>();
+        _ballMaterialControl.BallDestroyed += RestoreAndHide;
+    }
+
+    private void SetVisualEffectConfigurations() {
+        _visualEffect.visualEffectAsset = _visualEffectsConfigs.BallEffectAsset;
+        _visualEffect.SetTexture("ParticleTexture", _visualEffectsConfigs.ParticleTexture);
+        _visualEffect.SetInt("ParticlesNumber", _visualEffectsConfigs.ParticlesNumber);
+        _visualEffect.SetFloat("BallSize", _ballThrowingConfigs.CurrentBallSize);
     }
 
     public bool IsBallActive() {
         return _isBallActive;
+    }
+    
+    public void BallEffectEnable() {
+        _visualEffect.SendEvent("BallEffectEnable");
     }
 
     public void SetBallColorType(BallColorType colorType) {
@@ -83,13 +102,7 @@ public sealed class BallController : MonoBehaviour, IControlTheBall {
     public void BallSpawnEnable() {
         gameObject.SetActive(true);
 
-        StartCoroutine(BallSpawnStarted());
-    }
-
-    private IEnumerator BallSpawnStarted() {
-        yield return new WaitForSeconds(_ballThrowingConfigs.BallSpawnTime);
-
-        _mrBall.enabled = true;
+        _ballMaterialControl.BallSpawnEffectEnable();
     }
 
     public void BallDestroyEnable() {
@@ -100,13 +113,7 @@ public sealed class BallController : MonoBehaviour, IControlTheBall {
 
         StopAllCoroutines();
 
-        StartCoroutine(BallDestroyStarted());
-    }
-
-    private IEnumerator BallDestroyStarted() {
-        yield return new WaitForSeconds(_ballThrowingConfigs.BallDestroyTime);
-
-        RestoreAndHide();
+        _ballMaterialControl.BallDestroyEffectEnable();
     }
 
     public void SetBallLayer(int layerIndex) {
@@ -118,9 +125,7 @@ public sealed class BallController : MonoBehaviour, IControlTheBall {
             _rbBall.isKinematic = false;
 
             StartCoroutine(BallLifeStarted());
-        } else {
-            _rbBall.isKinematic = true;
-        }
+        } else _rbBall.isKinematic = true;
     }
 
     public void SetColliderActive(bool isActive) {
@@ -140,8 +145,6 @@ public sealed class BallController : MonoBehaviour, IControlTheBall {
     }
 
     private void RestoreAndHide() {
-        _mrBall.enabled = false;
-
         transform.SetParent(_iControlBallPool.GetBallPoolTransform());
         transform.position = Vector3.zero;
 
@@ -156,7 +159,7 @@ public sealed class BallController : MonoBehaviour, IControlTheBall {
         if (cObj.CompareTag("Balls")) {
             if (!isThrownBall) {
                 if (cObj.GetComponent<BallController>().GetBallColorType() == _ballColorType) HitTheRightBall?.Invoke(this);
-            } else BallDestroyEnable();
+            } else SetBallLayer(6);
         } else if (cObj.CompareTag("Plane")) {
             BallDestroyEnable();
         }
@@ -173,6 +176,7 @@ public interface IControlTheBall {
     public void SetPosition(Vector3 position, Transform parentObject);
     public void SetParent(Transform parentObject);
     public void SetBallSize(float size);
+    public void BallEffectEnable();
     public void BallSpawnEnable();
     public void BallDestroyEnable();
     public void SetBallLayer(int layerIndex);

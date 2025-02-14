@@ -16,9 +16,11 @@ MonoBehaviour:
   <CurrentBallSize>k__BackingField: 0.5
   <NextBallSize>k__BackingField: 0.25
   <BallMass>k__BackingField: 1
-  <BallLifeTime>k__BackingField: 2
-  <BallSpawnTime>k__BackingField: 0.01
-  <BallDestroyTime>k__BackingField: 1
+  <BallLifeTime>k__BackingField: 3
+  <BallSpawnTime>k__BackingField: 0.5
+  <BallDestroyTime>k__BackingField: 3
+  <CutoffHeightStart>k__BackingField: -8.2
+  <CutoffHeightFinish>k__BackingField: 0.7
   <AimSensitivity>k__BackingField: 5
   <MinHorizontalAimValue>k__BackingField: -50
   <MaxHorizontalAimValue>k__BackingField: 50

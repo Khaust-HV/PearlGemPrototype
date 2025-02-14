@@ -75,6 +75,7 @@ public sealed class SegmentLayerSphere : MonoBehaviour, IControlTheSegmentLayer 
 
             currentBall.SetParent(_iControlTheBallsPool.GetBallPoolTransform());
             currentBall.SetBallLayer(6);
+            currentBall.BallEffectEnable();
             currentBall.SetPhysicsActive(true);
 
             yield return new WaitForSeconds(_segmentDestoryTime);

@@ -12,4 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1c62c95700b643bf9200838953049a7, type: 3}
   m_Name: VisualEffectsConfigs
   m_EditorClassIdentifier: 
-  <BallMaterial>k__BackingField: {fileID: 2100000, guid: 73fceada90b5cb943a4aae6f2d79793b, type: 2}
+  <BallMaterial>k__BackingField: {fileID: 2100000, guid: e12c58426b4be41acb762b861866edc1, type: 2}
+  <NoiseScaleDissolve>k__BackingField: 75
+  <NoiseStrengthDissolve>k__BackingField: 10
+  <EdgeWidthDissolve>k__BackingField: 1
+  <EdgeColorDissolve>k__BackingField: {r: 0, g: 2.9960785, b: 2.9960785, a: 0}
+  <BallEffectAsset>k__BackingField: {fileID: 8926484042661614526, guid: 7d69fb668fc2742d994441ceb4e89943, type: 3}
+  <ParticleTexture>k__BackingField: {fileID: 2800000, guid: f23c6167778f9429ba70857aa6cefa06, type: 3}
+  <ParticlesNumber>k__BackingField: 50

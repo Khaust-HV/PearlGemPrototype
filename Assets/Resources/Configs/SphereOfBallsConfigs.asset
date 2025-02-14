@@ -24,4 +24,4 @@ MonoBehaviour:
   <MinNumberOfSegmentsOnOneLayer>k__BackingField: 2
   <MaxNumberOfSegmentsOnOneLayer>k__BackingField: 7
   <NeighborDistanceToBalls>k__BackingField: 0.6
-  <SegmentDestoryTime>k__BackingField: 0.01
+  <SegmentDestoryTime>k__BackingField: 0.001

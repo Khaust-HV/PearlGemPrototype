@@ -11,13 +11,19 @@ public sealed class LayerSphere : MonoBehaviour, IControlTheLayerSphere {
     #region DI
         private IControlTheBallsPool _iControlTheBallsPool;
         private SphereOfBallsConfigs _sphereOfBallsConfigs;
+        private BallThrowingConfigs _ballThrowingConfigs;
     #endregion
 
     [Inject]
-    private void Construct(SphereOfBallsConfigs sphereOfBallsConfigs, IControlTheBallsPool iControlBallsPool) {
+    private void Construct (
+        SphereOfBallsConfigs sphereOfBallsConfigs, 
+        IControlTheBallsPool iControlBallsPool, 
+        BallThrowingConfigs ballThrowingConfigs
+        ) {
         // Set DI
         _iControlTheBallsPool = iControlBallsPool;
         _sphereOfBallsConfigs = sphereOfBallsConfigs;
+        _ballThrowingConfigs = ballThrowingConfigs;
     }
 
     public bool IsLayerSphereActive() {
@@ -25,8 +31,16 @@ public sealed class LayerSphere : MonoBehaviour, IControlTheLayerSphere {
     }
 
     public void LayerSphereEnable() {
+        StartCoroutine(LayerSphereStarted());
+    }
+
+    private IEnumerator LayerSphereStarted() {
+        float timeDelay = _ballThrowingConfigs.BallSpawnTime;
+
         foreach (var segment in _currentSegments) {
             segment.SpawnSegmentBalls();
+
+            yield return new WaitForSeconds(timeDelay);
         }
 
         StartCoroutine(LayerSphereRotationStarted((LayerSphereRotateDirection)Random.Range(0, 2)));
@@ -102,6 +116,10 @@ public sealed class LayerSphere : MonoBehaviour, IControlTheLayerSphere {
 
         _isLayerSphereActive = false;
     }
+
+    public int GetSegmentNumber() {
+        return _currentSegments.Length;
+    }
 }
 
 public interface IControlTheLayerSphere  {
@@ -109,6 +127,7 @@ public interface IControlTheLayerSphere  {
     public void LayerSphereEnable();
     public void PlaceBallsOnLayerSphere(int ballsNumber, float sphereRadius, IControlTheSegmentLayer[] segments);
     public void DestroyLayerSphere();
+    public int GetSegmentNumber();
 }
 
 public enum LayerSphereRotateDirection {

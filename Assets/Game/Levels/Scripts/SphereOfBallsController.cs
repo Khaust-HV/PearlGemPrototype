@@ -1,3 +1,4 @@
+using System.Collections;
 using GameConfigs;
 using UnityEngine;
 using Zenject;
@@ -75,8 +76,20 @@ public sealed class SphereOfBallsController : MonoBehaviour, ICreateSphereOfBall
     }
 
     public void SpawnLayersSphere() {
+        StartCoroutine(SpawnSphereStarted());
+    }
+
+    private IEnumerator SpawnSphereStarted() {
+        float layerSpawnTime;
+
         foreach (var layerSphere in _layersSphereStorage) {
-            if (layerSphere.IsLayerSphereActive()) layerSphere.LayerSphereEnable();
+            if (layerSphere.IsLayerSphereActive()) {
+                layerSpawnTime = _ballThrowingConfigs.BallSpawnTime * layerSphere.GetSegmentNumber();
+
+                layerSphere.LayerSphereEnable();
+
+                yield return new WaitForSeconds(layerSpawnTime);
+            }
         }
     }
 
